@@ -4,7 +4,7 @@
 
 ## Die Idee
 Es gibt unendlich viele tolle Video-Spiele, allerdings sind diese nicht für alle zugänglich und barrierefrei! 
-Sound Island ist ein Audio-Spiel, dass sehbehinderte Menschen nur durch Sound-Effekte, Musik und Eingabe-Geräte am Computer im Web-Browser spielen können.
+Sound Island ist ein Audio-Spiel, das sehbehinderte Menschen nur durch Sound-Effekte, Musik und Eingabe-Geräte am Computer im Web-Browser spielen können.
 
 ## Das Setting
 
@@ -17,7 +17,7 @@ Die Heldin Lanu muss nun durch die Höhle wieder nach draußen...
 
 Nach dem gesprochenen Intro findet sich der Spieler in der Höhle wieder. 
 Die Heldin wird mit den Pfeiltasten durch die Spielwelt, eine Höhle, gesteuert und muss sich nur durch Geräusche in der dunklen (und nicht sichtlbaren) Umgebung orientieren.
-Der Untergrund, Gegenstände und Interaktionen mit der Umwelt verursachen Geräusche, die dem Spieler helfen, sich zu recht zu finden. 
+Der Untergrund, Gegenstände und Interaktionen mit der Umwelt verursachen Geräusche, die dem Spieler helfen, sich zurecht zu finden. 
 Der Spieler muss den Weg aus der Höhle hinaus finden, wird aber auf dem Weg von Hindernissen und Monstern abgehalten. Unterwegs trifft Lanu auch immer wieder auf Türen, die aber verschlossen sind. Die Schlüssel für diese Türen kann der Spieler in Schatztruhen finden, die Geräusche machen.
 
 ## Der Prozess
