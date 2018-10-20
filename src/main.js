@@ -17,7 +17,6 @@ function start(elem) {
 }
 
 function setup() {
-
   v_pos = createVector(0, 0);
   angleMode(DEGREES);
   rectMode(CENTER);
@@ -28,14 +27,10 @@ function setup() {
   song.disconnect();
   song.loop();
   song.connect(panner1);
-
-
 }
 
 function preload() {
-
   song = loadSound('/assets/sound/cc.wav');
-
 }
 
 function draw() {
@@ -74,7 +69,3 @@ function draw() {
   panner1.positionX(-v_pos.x + windowWidth/2);
   panner1.positionY(-v_pos.y + windowHeight/2);
 }
-
-// const rect = (x, y, w, h, angle) => {
-//   translate()
-//}
