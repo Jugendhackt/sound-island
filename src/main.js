@@ -7,7 +7,7 @@ var angle = 90;
 
 function preload() {
 
-  sound = loadSound('/assets/sounds/slumberjack.mp3+');
+  sound = loadSound('/assets/sound/steps-gravel.mp3');
 
 }
 
@@ -20,7 +20,6 @@ panner1 = new p5.Panner3D();
   createCanvas(windowWidth, windowHeight);
 
   sound.disconnect()
-  sound.loop()
   sound.connect(panner1)
 
 }
@@ -45,15 +44,27 @@ function draw() {
 
   if (keyIsDown(LEFT_ARROW)) {
     angle -= 1
+    sound.disconnect()
+    sound.play()
+    sound.connect(panner1)
   }
   if (keyIsDown(RIGHT_ARROW)) {
     angle += 1
+    sound.disconnect()
+    sound.play()
+    sound.connect(panner1)
   }
   if (keyIsDown(DOWN_ARROW)) {
     v_pos.add(v_dir.mult(2))
+    sound.disconnect()
+    sound.play()
+    sound.connect(panner1)
   }
   if (keyIsDown(UP_ARROW)) {
     v_pos.sub(v_dir.mult(2))
+    sound.disconnect()
+    sound.play()
+    sound.connect(panner1)
   }
 
   v_panner = new p5.Vector(50, 0);
