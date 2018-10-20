@@ -1,14 +1,7 @@
-
-class GameNode{
-	constructor(x,y){
-		this.x = x;
-		this.y = y;
-	}
-}
-
-class GameObject{
-    constructor(x,y,sound){
-        this.node = new Node(x,y);
+class GameObject{	
+	constructor(x,y){       
+		this.mX = x;
+		this.mY = y;
         this.mSound = sound;
     }
 }
@@ -53,7 +46,8 @@ class Sound{
     constructor(soundFile,posX,posY,repeat){
         this.mSound = soundFile;
         this.mPanner = p5.Panner3D();
-        this.node = new GameNode(posX,posY);
+        this.x = posX;
+		this.y = posY;
         this.mRepeat = repeat;
         this.mFinished = false;
     }
@@ -75,35 +69,6 @@ class Sound{
     }
 }
 
-class Player{
-    constructor(x,y,heading){
-        this.node = new GameNode(x,y);
-        this.playerSpeed = 5;
-        this.heading = 270;
-    }
-
-    pulse(tryVecs,walls,width,height){
-        for(i = 0; i < 180; i++){
-            vecX = 1 * Math.cos(i);
-            vecY = 1 * Math.sin(i);
-            vec = createVector(vecY,vecY);
-            line = new Line(vec,createVector(this.mX,this.mY));
-            mag = vec.mag();
-
-            for(j = 0; j < tryVecs.length; j++){
-
-            }
-        }
-    }
-}
-
-class Line{
-    constructor(vecD, vecM){
-        this.vecD = vecD;
-        this.vecM = vecM;
-    }
-}
-
 var v_pos = new p5.Vector(0, 0);
 var v_panner = new p5.Vector(50, 0);
 var v_dir;
@@ -116,7 +81,7 @@ function preload() {
   sound = loadSound('/assets/sound/steps-gravel.mp3');
   panner1 = new p5.Panner3D();
   angleMode(DEGREES);
-	sound.disconnect()
+  sound.disconnect()
   sound.connect(panner1)
 
 }
