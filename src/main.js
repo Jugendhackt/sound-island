@@ -50,6 +50,8 @@ class Sound{
 		this.y = posY;
         this.mRepeat = repeat;
         this.mFinished = false;
+		this.mSound.disconnect();
+		this.mSound.connnect(mPanner);
     }
 
     play(){
@@ -75,6 +77,7 @@ var v_dir;
 var x = 0;
 var y = -200;
 var angle = 90;
+var soundManager = new SoundManager();
 
 function preload() {
 
