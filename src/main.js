@@ -1,7 +1,3 @@
-function setup(){
-
-}
-
-function draw(){
-	
+function start(elem) {
+    elem.style.opacity = '0';
 }
