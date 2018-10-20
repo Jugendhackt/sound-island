@@ -1,63 +1,53 @@
-var angle = 90;
-var v_pos;
+var v_pos = new p5.Vector(0, 0);
+var v_panner = new p5.Vector(50, 0);
 var v_dir;
-
-var started = false
-var posX = 0
-
-var AudioContext = window.AudioContext || window.webkitAudioContext;
-var audioCtx = new AudioContext();
-
-var panner = audioCtx.createPanner();
-var listener = audioCtx.listener;
-
-function start(elem) {
-  elem.style.opacity = '0';
-  started = true
-}
-
-<<<<<<< HEAD
-function setup() {
-
-  v_pos = createVector(0, 0);
-  angleMode(DEGREES);
-  rectMode(CENTER);
-
-  createCanvas(windowWidth, windowHeight);
-
-  panner1 = new p5.Panner3D();
-  song.disconnect();
-  song.loop();
-  song.connect(panner1);
-
-
-}
+var x = 0;
+var y = -200;
+var angle = 90;
 
 function preload() {
 
-  song = loadSound('/assets/sound/cc.wav');
+  sound = loadSound('/assets/sounds/slumberjack.mp3+');
+
+}
+
+function setup() {
+
+
+panner1 = new p5.Panner3D();
+  angleMode(DEGREES);
+
+  createCanvas(windowWidth, windowHeight);
+
+  sound.disconnect()
+  sound.loop()
+  sound.connect(panner1)
 
 }
 
 function draw() {
-    if (started) {
-      if (!song.isPlaying())
-        //panner1.positionX(-2);
-        song.play();
-    }
 
-  translate(v_pos.x, v_pos.y);
-  const v_pos_old = v_pos;
-  background(255, 0, 0);
-  rotate(angle);
-  obj = rect(0, 0, 200, 100);
+
+  translate(windowWidth/2, windowHeight/2);
+
+  rectMode(CENTER);
+
+  background(51);
+
+  push()
+  rotate(-angle + 90);
+  translate(-v_pos.x,-v_pos.y);
+
   v_dir = createVector(cos(angle), sin(angle));
 
+  player = rect(v_pos.x,v_pos.y, 10, 10);
+  obj1 = ellipse(50, 0, 10, 10);
+
   if (keyIsDown(LEFT_ARROW)) {
-    angle -= 3
+    angle -= 1
   }
   if (keyIsDown(RIGHT_ARROW)) {
-    angle += 3
+    angle += 1
   }
   if (keyIsDown(DOWN_ARROW)) {
     v_pos.add(v_dir.mult(2))
@@ -66,19 +56,14 @@ function draw() {
     v_pos.sub(v_dir.mult(2))
   }
 
+  v_panner = new p5.Vector(50, 0);
 
-  translate(-v_pos_old.x, -v_pos_old.y);
-  rotate(-angle);
+  v_panner.sub(v_pos);
+  v_panner.rotate((-angle + 90)/180*PI);
 
+  panner1.positionX(v_panner.x*30)
+  panner1.positionY(v_panner.y*30)
 
-  obj2 = rect(0, 0, 100, 100);
-  panner1.positionX(-v_pos.x + windowWidth/2);
-  panner1.positionY(-v_pos.y + windowHeight/2);
+  console.log(v_panner.x, v_panner.y)
+
 }
-
-// const rect = (x, y, w, h, angle) => {
-//   translate()
-//}
-=======
-
->>>>>>> 3a10f9f9fe7430cdb2b81628e304f8a6c9e1985f
