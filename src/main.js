@@ -33,19 +33,19 @@ class SoundManager{
     removeSound(sound){
         newArr = [];
         for(i = 0; i < mSounds.length();i++){
-            if(newArr[i] != sound)
+            if(mSounds[i] != sound)
                 newArr.push(mSounds)
+			else
+				mSounds[i].stop()
         }
         mSounds = newArr;
     }
 }
 
-
-
 class Sound{
-    constructor(soundFile,posX,posY,repeat){
+    constructor(soundFile,posX,posY,panner,repeat){
         this.mSound = soundFile;
-        this.mPanner = p5.Panner3D();
+        this.mPanner = panner;
         this.x = posX;
 		this.y = posY;
         this.mRepeat = repeat;
@@ -92,6 +92,7 @@ function preload() {
 function draw() {
 
 
+  soundManager.manageSounds();
   translate(windowWidth/2, windowHeight/2);
 
   rectMode(CENTER);
