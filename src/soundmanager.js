@@ -28,4 +28,13 @@ class SoundManager{
 		}
 		mSounds = newArr;
 	}
+	
+	//implement these functions
+	function translate(){
+
+	}
+	
+	function rotate(){
+
+	}
 }
