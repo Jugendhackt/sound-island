@@ -1,80 +1,103 @@
-var angle = 90;
-var v_pos;
-var v_dir;
-
-var started = false
-var posX = 0
-
-var AudioContext = window.AudioContext || window.webkitAudioContext;
-var audioCtx = new AudioContext();
-
-var panner = audioCtx.createPanner();
-var listener = audioCtx.listener;
-
-function start(elem) {
-  elem.style.opacity = '0';
-  started = true
+class GameNode{
+	constructor(x,y){
+		this.x = x;
+		this.y = y;
+	}
 }
 
-function setup() {
-
-  v_pos = createVector(0, 0);
-  angleMode(DEGREES);
-  rectMode(CENTER);
-
-  createCanvas(windowWidth, windowHeight);
-
-  panner1 = new p5.Panner3D();
-  song.disconnect();
-  song.loop();
-  song.connect(panner1);
-
-
+class GameObject{
+    constructor(x,y,sound){
+        this.node = new Node(x,y);
+        this.mSound = sound;
+    }
 }
 
-function preload() {
+class SoundManager{
+    constructor(){
+		this.mSounds = [];
+	}
 
-  song = loadSound('/assets/sound/cc.wav');
-
-}
-
-function draw() {
-    if (started) {
-      if (!song.isPlaying())
-        //panner1.positionX(-2);
-        song.play();
+    playSound(sound){
+        this.mSounds.push(sound);
     }
 
-  translate(v_pos.x, v_pos.y);
-  const v_pos_old = v_pos;
-  background(255, 0, 0);
-  rotate(angle);
-  obj = rect(0, 0, 200, 100);
-  v_dir = createVector(cos(angle), sin(angle));
+    manageSounds(){
+        for(i = 0; i < mSounds.length; i++){
+            if(!mSound[i].mFinished)
+                sound.play();
+            else
+                removeSound(mSound[i]);
+        }
+    }
 
-  if (keyIsDown(LEFT_ARROW)) {
-    angle -= 3
-  }
-  if (keyIsDown(RIGHT_ARROW)) {
-    angle += 3
-  }
-  if (keyIsDown(DOWN_ARROW)) {
-    v_pos.add(v_dir.mult(2))
-  }
-  if (keyIsDown(UP_ARROW)) {
-    v_pos.sub(v_dir.mult(2))
-  }
+    cancelAllSounds(){
+        for(i = 0; i < mSounds.length(); i++){
+            mSounds[i].stop();
+        }
+    }
 
-
-  translate(-v_pos_old.x, -v_pos_old.y);
-  rotate(-angle);
-
-
-  obj2 = rect(0, 0, 100, 100);
-  panner1.positionX(-v_pos.x + windowWidth/2);
-  panner1.positionY(-v_pos.y + windowHeight/2);
+    removeSound(sound){
+        newArr = [];
+        for(i = 0; i < mSounds.length();i++){
+            if(newArr[i] != sound)
+                newArr.push(mSounds)
+        }
+        mSounds = newArr;
+    }
 }
 
-// const rect = (x, y, w, h, angle) => {
-//   translate()
-//}
+class Sound{
+    constructor(soundFile,posX,posY,repeat){
+        this.mSound = soundFile;
+        this.mPanner = p5.Panner3D();
+        this.node = new GameNode(posX,posY);
+        this.mRepeat = repeat;
+        this.mFinished = false;
+    }
+
+    play(){
+        if(!mRepeat){
+            if(!this.mSound.isPlaying()){
+                this.mSound.play();
+                setTimeout(finish,this.mSound.duration())
+            }
+        }else{
+            if(!this.mSound.isLooping())
+                this.mSound.loop();
+        }
+    }
+
+    finish(){
+        this.mFinished = true
+    }
+}
+
+class Player{
+    constructor(x,y,heading){
+        this.node = new GameNode(x,y);
+        this.playerSpeed = 5;
+        this.heading = 270;
+    }
+
+    pulse(tryVecs,walls,width,height){
+        for(i = 0; i < 180; i++){
+            vecX = 1 * Math.cos(i);
+            vecY = 1 * Math.sin(i);
+            vec = createVector(vecY,vecY);
+            line = new Line(vec,createVector(this.mX,this.mY));
+            mag = vec.mag();
+
+            for(j = 0; j < tryVecs.length; j++){
+
+            }
+        }
+    }
+}
+
+class Line{
+    constructor(vecD, vecM){
+        this.vecD = vecD;
+        this.vecM = vecM;
+    }
+}
+
