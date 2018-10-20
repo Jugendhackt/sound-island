@@ -16,6 +16,7 @@ function start(elem) {
   started = true
 }
 
+<<<<<<< HEAD
 function setup() {
 
   v_pos = createVector(0, 0);
@@ -78,3 +79,6 @@ function draw() {
 // const rect = (x, y, w, h, angle) => {
 //   translate()
 //}
+=======
+
+>>>>>>> 3a10f9f9fe7430cdb2b81628e304f8a6c9e1985f
