@@ -4,16 +4,23 @@ class Sound{
 		this.mPanner = p5.Panner3D();
 		this.mX = posX;
 		this.mY = posY;
-		this.mRepeat = repeat
+		this.mRepeat = repeat;
+		this.mFinished = false;
 	}
 
 	function play(){
 		if(!mRepeat){
-			if(!this.mSound.isPlaying())
+			if(!this.mSound.isPlaying()){
 				this.mSound.play();
+				setTimeout(finish,this.mSound.duration())
+			}
 		}else{
 			if(!this.mSound.isLooping())
-				this.mSOund.loop()
+				this.mSound.loop();
 		}
+	}
+
+	function finish(){
+		this.mFinished = true
 	}
 }
