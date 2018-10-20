@@ -8,6 +8,7 @@ function preload() {
 }
 
 function setup() {
+  preload()
   createCanvas(800, 600);
   ellipseMode(CENTER);
   s = tmap.getMapSize();

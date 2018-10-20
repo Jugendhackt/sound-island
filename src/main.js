@@ -40,10 +40,8 @@ function draw() {
         song.play();
     }
 
-  translate(v_pos.x, v_pos.y);
-  const v_pos_old = v_pos;
   background(255, 0, 0);
-  rotate(angle);
+
   obj = rect(0, 0, 200, 100);
   v_dir = createVector(cos(angle), sin(angle));
 
