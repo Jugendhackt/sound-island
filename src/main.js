@@ -12,39 +12,13 @@ function preload() {
 }
 
 function setup() {
-<<<<<<< HEAD
-  v_pos = createVector(0, 0);
-=======
 
 
 panner1 = new p5.Panner3D();
->>>>>>> a0b96f80b210d41d9c88d9b6f9b2e55316ac6771
   angleMode(DEGREES);
 
   createCanvas(windowWidth, windowHeight);
 
-<<<<<<< HEAD
-  panner1 = new p5.Panner3D();
-  song.disconnect();
-  song.loop();
-  song.connect(panner1);
-}
-
-function preload() {
-  song = loadSound('/assets/sound/cc.wav');
-}
-
-function draw() {
-    if (started) {
-      if (!song.isPlaying())
-        //panner1.positionX(-2);
-        song.play();
-    }
-
-  background(255, 0, 0);
-
-  obj = rect(0, 0, 200, 100);
-=======
   sound.disconnect()
   sound.loop()
   sound.connect(panner1)
@@ -64,7 +38,6 @@ function draw() {
   rotate(-angle + 90);
   translate(-v_pos.x,-v_pos.y);
 
->>>>>>> a0b96f80b210d41d9c88d9b6f9b2e55316ac6771
   v_dir = createVector(cos(angle), sin(angle));
 
   player = rect(v_pos.x,v_pos.y, 10, 10);
@@ -91,12 +64,6 @@ function draw() {
   panner1.positionX(v_panner.x*30)
   panner1.positionY(v_panner.y*30)
 
-<<<<<<< HEAD
-  obj2 = rect(0, 0, 100, 100);
-  panner1.positionX(-v_pos.x + windowWidth/2);
-  panner1.positionY(-v_pos.y + windowHeight/2);
-=======
   console.log(v_panner.x, v_panner.y)
 
->>>>>>> a0b96f80b210d41d9c88d9b6f9b2e55316ac6771
 }
