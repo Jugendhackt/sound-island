@@ -73,9 +73,12 @@ class Sound {
   }
 }
 
-var v_pos = new p5.Vector(0, 0);
-var v_panner = new p5.Vector(50, 0);
-var v_dir;
+var v_pos1 = new p5.Vector(0, 0);
+var v_panner1 = new p5.Vector(50, 0);
+var v_dir1;
+var v_pos2 = new p5.Vector(0, 0);
+var v_panner2 = new p5.Vector(-150, 50);
+var v_dir2;
 var x = 0;
 var y = -200;
 var angle = 90;
@@ -94,11 +97,19 @@ function preload() {
   sound.connect(panner)
   soundObject = new Sound(sound, 0, 0, panner, true);
 
+  sound2 = loadSound('/assets/sound/fire.mp3')
+  //sound2.disconnect()
+  panner2 = new p5.Panner3D();
+  //sound2.connect(panner2);
+  soundObject2 = new Sound(sound2, 0, 0, panner2, true)
+
   angleMode(DEGREES);
 }
 
 function draw() {
+  noStroke()
   soundManager.manageSounds();
+  soundManager.playSound(soundObject2);
   translate(windowWidth / 2, windowHeight / 2);
 
   rectMode(CENTER);
@@ -107,12 +118,19 @@ function draw() {
 
   push()
   rotate(-angle + 90);
-  translate(-v_pos.x, -v_pos.y);
+  translate(-v_pos1.x, -v_pos1.y);
 
-  v_dir = createVector(cos(angle), sin(angle));
+  v_dir1 = createVector(cos(angle), sin(angle));
 
-  player = rect(v_pos.x, v_pos.y, 10, 10);
+  player = rect(v_pos1.x, v_pos1.y, 10, 10);
   obj1 = ellipse(50, 0, 10, 10);
+  push()
+  let red = color(255, 0, 0)
+  fill(red)
+  obj2 = ellipse(-150, 50, 10, 10);
+  pop()
+
+
 
   if (keyIsDown(LEFT_ARROW)) {
     soundManager.playSound(soundObject);
@@ -121,24 +139,30 @@ function draw() {
     soundManager.playSound(soundObject);
     angle += 1
   } else if (keyIsDown(DOWN_ARROW)) {
-    v_pos.add(v_dir.mult(2))
+    v_pos1.add(v_dir1.mult(2))
     soundManager.playSound(soundObject);
   } else if (keyIsDown(UP_ARROW)) {
-    v_pos.sub(v_dir.mult(2))
+    v_pos1.sub(v_dir1.mult(2))
     soundManager.playSound(soundObject);
   } else {
     soundManager.removeSound(soundObject.special_snowflake);
   }
 
-  v_panner = new p5.Vector(50, 0);
+  v_panner1 = new p5.Vector(50, 0);
 
-  v_panner.sub(v_pos);
-  v_panner.rotate((-angle + 90) / 180 * PI);
+  v_panner1.sub(v_pos1);
+  v_panner1.rotate((-angle + 90) / 180 * PI);
 
-  panner.positionX(v_panner.x * 20)
-  panner.positionY(v_panner.y * 20)
+  v_panner2.sub(v_pos1);
+  v_panner2.rotate((-angle + 90) / 180 * PI);
 
-  console.log(v_panner.x, v_panner.y)
+  panner.positionX(v_panner1.x * 40)
+  panner.positionY(v_panner1.y * 40)
+
+  panner2.positionX(v_panner2.x * 40)
+  panner2.positionY(v_panner2.y * 40)
+
+  console.log(v_panner2.x,v_panner2.y)
 
 
 }
