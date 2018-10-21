@@ -98,10 +98,13 @@ function preload() {
   soundObject = new Sound(sound, 0, 0, panner, true);
 
   sound2 = loadSound('/assets/sound/fire.mp3')
+  steps = loadSound('/assets/sound/steps-gravel.mp3')
+  panner3 = new p5.Panner3D()
   //sound2.disconnect()
   panner2 = new p5.Panner3D();
   //sound2.connect(panner2);
   soundObject2 = new Sound(sound2, 0, 0, panner2, true)
+  soundObject3 = new Sound(steps, 0, 0, panner3, true)
 
   angleMode(DEGREES);
 }
@@ -111,7 +114,6 @@ function draw() {
   soundManager.manageSounds();
   soundManager.playSound(soundObject2);
   translate(windowWidth / 2, windowHeight / 2);
-
   rectMode(CENTER);
 
   background(51);
@@ -130,22 +132,26 @@ function draw() {
   obj2 = ellipse(-150, 50, 10, 10);
   pop()
   sound2.setVolume(0.5);
+  steps.setVolume(0.5);
   soundManager.playSound(soundObject);
 
   if (keyIsDown(LEFT_ARROW)) {
 
     angle -= 1
+    soundManager.playSound(soundObject3);
   } else if (keyIsDown(RIGHT_ARROW)) {
 
     angle += 1
+    soundManager.playSound(soundObject3);
   } else if (keyIsDown(DOWN_ARROW)) {
     v_pos1.add(v_dir1.mult(2))
-
+    soundManager.playSound(soundObject3);
   } else if (keyIsDown(UP_ARROW)) {
     v_pos1.sub(v_dir1.mult(2))
+    soundManager.playSound(soundObject3);
 
   } else {
-    // soundManager.removeSound(soundObject.special_snowflake);
+     soundManager.removeSound(soundObject3.special_snowflake);
   }
 
   v_panner1 = new p5.Vector(50, 0);
@@ -162,6 +168,9 @@ function draw() {
 
   panner2.positionX(v_panner2.x * 40)
   panner2.positionY(v_panner2.y * 40)
+
+  panner3.positionX(v_pos1.x)
+  panner3.positionX(v_pos1.y)
 
   console.log(v_panner2.x,v_panner2.y)
 
