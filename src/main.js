@@ -91,7 +91,7 @@ function setup() {
 }
 
 function preload() {
-  sound = loadSound('/assets/sound/steps-gravel.mp3');
+  sound = loadSound('/assets/sound/glitter_1.mp3');
   sound.disconnect()
   panner = new p5.Panner3D();
   sound.connect(panner)
@@ -129,26 +129,27 @@ function draw() {
   fill(red)
   obj2 = ellipse(-150, 50, 10, 10);
   pop()
-
-
+  sound2.setVolume(0.5);
+  soundManager.playSound(soundObject);
 
   if (keyIsDown(LEFT_ARROW)) {
-    soundManager.playSound(soundObject);
+
     angle -= 1
   } else if (keyIsDown(RIGHT_ARROW)) {
-    soundManager.playSound(soundObject);
+
     angle += 1
   } else if (keyIsDown(DOWN_ARROW)) {
     v_pos1.add(v_dir1.mult(2))
-    soundManager.playSound(soundObject);
+
   } else if (keyIsDown(UP_ARROW)) {
     v_pos1.sub(v_dir1.mult(2))
-    soundManager.playSound(soundObject);
+
   } else {
-    soundManager.removeSound(soundObject.special_snowflake);
+    // soundManager.removeSound(soundObject.special_snowflake);
   }
 
   v_panner1 = new p5.Vector(50, 0);
+  v_panner2 = new p5.Vector(-150, 50);
 
   v_panner1.sub(v_pos1);
   v_panner1.rotate((-angle + 90) / 180 * PI);
