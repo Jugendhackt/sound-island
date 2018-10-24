@@ -1,5 +1,5 @@
 class GameObject {
-  constructor(x, y) {
+  constructor(x, y, sound) {
     this.mX = x;
     this.mY = y;
     this.mSound = sound;
@@ -15,8 +15,9 @@ class SoundManager {
     this.mSounds.push(sound);
   }
 
-  manageSounds() {
+  manageSounds(playerVec,angle) {
     this.mSounds.forEach(sound => {
+	  sound.updateSound(playerVec,angle);
       if (!sound.mFinished)
         sound.play();
       else
@@ -40,17 +41,17 @@ class SoundManager {
 }
 
 class Sound {
-  constructor(soundFile, posX, posY, panner, repeat) {
+  constructor(filePath, posVec, repeat) {
     this.special_snowflake = Math.random().toString(36);
-    this.mSound = soundFile;
-    this.mPanner = panner;
-    this.x = posX;
-    this.y = posY;
+    this.mSound = loadSound(filePath);
+    this.x = posVec.x;
+	this.y = posVec.y;
+	this.mPanner = new p5.Panner3D();
     this.mRepeat = repeat;
     this.mFinished = false;
     this.mSound.disconnect();
     this.mSound.connect(this.mPanner);
-
+	//soundManager.playSound(this);
 
     this.removeWrapper = function() {
       var e = function(sound, special_snowflake) {
@@ -59,10 +60,7 @@ class Sound {
       }
       e(this, this.special_snowflake);
     }
-
   }
-
-
 
   play() {
     if (!this.mSound.isPlaying()) {
@@ -70,6 +68,14 @@ class Sound {
       if (!this.mRepeat)
         setTimeout(() => this.removeWrapper(), this.mSound.buffer.duration * 1000);
     }
+  }
+
+  updateSound(v_pos1,angle){
+ 	var v_panner = new p5.Vector(this.x,this.y);
+	v_panner.sub(v_pos1);
+	v_panner.rotate((-angle + 90) * PI / 180);
+	this.mPanner.positionX(v_panner.x * 40);
+	this.mPanner.positionY(v_panner.y * 40);
   }
 }
 
@@ -91,25 +97,15 @@ function setup() {
 }
 
 function preload() {
-  sound = loadSound('/assets/sound/steps-gravel.mp3');
-  sound.disconnect()
-  panner = new p5.Panner3D();
-  sound.connect(panner)
-  soundObject = new Sound(sound, 0, 0, panner, true);
-
-  sound2 = loadSound('/assets/sound/fire.mp3')
-  //sound2.disconnect()
-  panner2 = new p5.Panner3D();
-  //sound2.connect(panner2);
-  soundObject2 = new Sound(sound2, 0, 0, panner2, true)
-
+  soundObject = new Sound('/assets/sound/steps-gravel.mp3', createVector(50,0), true);
+  soundObject2 = new Sound('/assets/sound/fire.mp3', createVector(-150,50), true);
+  soundManager.playSound(soundObject2);
   angleMode(DEGREES);
 }
 
 function draw() {
   noStroke()
-  soundManager.manageSounds();
-  soundManager.playSound(soundObject2);
+  soundManager.manageSounds(v_pos1,angle);
   translate(windowWidth / 2, windowHeight / 2);
 
   rectMode(CENTER);
@@ -130,8 +126,6 @@ function draw() {
   obj2 = ellipse(-150, 50, 10, 10);
   pop()
 
-
-
   if (keyIsDown(LEFT_ARROW)) {
     soundManager.playSound(soundObject);
     angle -= 1
@@ -148,7 +142,8 @@ function draw() {
     soundManager.removeSound(soundObject.special_snowflake);
   }
 
-  v_panner1 = new p5.Vector(50, 0);
+  /*v_panner1 = new p5.Vector(50, 0);
+  v_panner2 = new p5.Vector(-150,50);
 
   v_panner1.sub(v_pos1);
   v_panner1.rotate((-angle + 90) / 180 * PI);
@@ -160,7 +155,7 @@ function draw() {
   panner.positionY(v_panner1.y * 40)
 
   panner2.positionX(v_panner2.x * 40)
-  panner2.positionY(v_panner2.y * 40)
+  panner2.positionY(v_panner2.y * 40)*/
 
   console.log(v_panner2.x,v_panner2.y)
 
