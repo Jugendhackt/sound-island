@@ -59,12 +59,15 @@ String Webserver_GetRequestGETParameter()
         } else if (c != '\r') {  // if you got anything else but a carriage return character,
           currentLine += c;      // add it to the end of the currentLine
         }
-
-        if (c=='\r' && currentLine.startsWith("GET /?")) 
+        if  (c=='\r' && currentLine.startsWith("OPTIONS")){
+          Serial.println("OPTIONS");
+        }
+        
+        if  (c=='\r' && currentLine.startsWith("GET /?")) 
         // we see a "GET /?" in the HTTP data of the client request
         // user entered ADDRESS/?xxxx in webbrowser, xxxx = GET Parameter
         {
-          
+          Serial.println("GET");
           GETParameter = currentLine.substring(currentLine.indexOf('?') + 1, currentLine.indexOf(' ', 6));    // extract everything behind the ? and before a space
                     
         }
@@ -98,7 +101,7 @@ void Webserver_SendJson(String HTMLPage)
 
    // begin with HTTP response header
    httpResponse += "HTTP/1.1 200 OK\r\n";
-   httpResponse += "Content-type:application/json\r\n\r\n";
+   httpResponse += "Content-type:application/json\r\nAccess-Control-Allow-Origin: *\r\nAccess-Control-Allow-Methods: POST, GET, OPTIONS\r\nAccess-Control-Max-Age: 86400\r\n\r\n";
 
    // then the HTML page
    httpResponse += HTMLPage;
