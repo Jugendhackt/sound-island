@@ -35,7 +35,7 @@ function setup() {
 
 function preload() {
 
-  song = loadSound('/assets/sound/cc.wav');
+  song = loadSound('assets/sound/cc.wav');
 
 }
 

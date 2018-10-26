@@ -91,14 +91,14 @@ function setup() {
 }
 
 function preload() {
-  sound = loadSound('/assets/sound/glitter_1.mp3');
+  sound = loadSound('assets/sound/glitter_1.mp3');
   sound.disconnect()
   panner = new p5.Panner3D();
   sound.connect(panner)
   soundObject = new Sound(sound, 0, 0, panner, true);
 
-  sound2 = loadSound('/assets/sound/fire.mp3')
-  steps = loadSound('/assets/sound/steps-gravel.mp3')
+  sound2 = loadSound('assets/sound/fire.mp3')
+  steps = loadSound('assets/sound/steps-gravel.mp3')
   panner3 = new p5.Panner3D()
   //sound2.disconnect()
   panner2 = new p5.Panner3D();
